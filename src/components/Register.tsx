@@ -2,12 +2,10 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 const Register = () => {
-    // Adres API
     const API_URL = 'https://localhost:7139/api/Account';
 
     const navigate = useNavigate();
 
-    // Stan formularza
     const [formData, setFormData] = useState({
         username: '',
         firstName: '',
@@ -27,7 +25,6 @@ const Register = () => {
     
     const [isLoading, setIsLoading] = useState(false);
 
-    // Regex patterns
     const usernameRegex = /^[a-zA-Z0-9]+$/;
     const nameRegex = /^[a-zA-Z\s-]+$/;
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -189,7 +186,7 @@ const Register = () => {
             <div className="max-w-md w-full bg-white shadow-xl overflow-hidden">
                 <div className="bg-indigo-600 px-6 py-4">
                     <h2 className="text-white text-xl font-bold flex items-center justify-center gap-2">
-                        📝 Create an account
+                        Create an account
                     </h2>
                 </div>
 
@@ -200,9 +197,7 @@ const Register = () => {
                         </div>
                     )}
 
-                    {/* First Name & Last Name Container - MOVED UP */}
                     <div className="grid grid-cols-2 gap-4">
-                        {/* First Name */}
                         <div>
                             <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-1">
                                 First Name
@@ -222,7 +217,6 @@ const Register = () => {
                             )}
                         </div>
 
-                        {/* Last Name */}
                         <div>
                             <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 mb-1">
                                 Last Name
@@ -243,7 +237,6 @@ const Register = () => {
                         </div>
                     </div>
 
-                    {/* Username - MOVED DOWN */}
                     <div>
                         <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-1">
                             Username
@@ -263,7 +256,6 @@ const Register = () => {
                         )}
                     </div>
 
-                    {/* Email */}
                     <div>
                         <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
                             Email
@@ -283,7 +275,6 @@ const Register = () => {
                         )}
                     </div>
 
-                    {/* Password */}
                     <div>
                         <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
                             Password

@@ -18,8 +18,6 @@ const NavBar = () => {
     <nav className="bg-gray-800 shadow-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          
-          {/* --- LEWA STRONA (Logo + Linki aplikacji) --- */}
           <div className="flex items-center">
             <div className="flex-shrink-0">
               <span className="text-white font-bold text-xl">Cars Client App</span>
@@ -27,7 +25,6 @@ const NavBar = () => {
             
             <div className="hidden md:block">
               <div className="ml-10 flex items-baseline space-x-4">
-                {/* Widoczne tylko dla ZALOGOWANYCH */}
                 {token && (
                   <>
                     <NavLink to="/cars" end className={linkClasses}>
@@ -40,7 +37,6 @@ const NavBar = () => {
                   </>
                 )}
                 
-                {/* Linki ogólne (opcjonalnie) */}
                 <NavLink to="/not-found" className={linkClasses}>
                   Not Found
                 </NavLink>
@@ -48,13 +44,11 @@ const NavBar = () => {
             </div>
           </div>
 
-          {/* --- PRAWA STRONA (Login/Register/Logout) --- */}
           <div className="flex items-center">
             <div className="hidden md:block">
               <div className="ml-4 flex items-baseline space-x-4">
                 
                 {token ? (
-                  // Dla ZALOGOWANYCH: Przycisk Logout
                   <button
                     onClick={handleLogout}
                     className="text-gray-300 hover:bg-red-600 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition duration-150 cursor-pointer"
@@ -62,7 +56,6 @@ const NavBar = () => {
                     Logout
                   </button>
                 ) : (
-                  // Dla NIEZALOGOWANYCH: Login i Register
                   <>
                     <NavLink to="/login" end className={linkClasses}>
                       Login
@@ -77,7 +70,6 @@ const NavBar = () => {
               </div>
             </div>
           </div>
-
         </div>
       </div>
     </nav>

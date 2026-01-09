@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 const Login = () => {
-    // Zmień ten adres na adres swojego backendu (np. http://localhost:8080 lub https://twoja-api.com)
     const API_URL = 'https://localhost:7139/api/Account';
 
     const navigate = useNavigate();
@@ -15,7 +14,6 @@ const Login = () => {
     const [errors, setErrors] = useState<{ email?: string; password?: string; form?: string }>({});
     const [isLoading, setIsLoading] = useState(false);
 
-    // Standard Email Regex
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
     const validateField = (name: string, value: string): string | undefined => {
@@ -49,14 +47,13 @@ const Login = () => {
         setErrors(prev => ({
             ...prev,
             [name]: error,
-            form: undefined // Clear global form error on change
+            form: undefined
         }));
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         
-        // 1. Walidacja lokalna
         const newErrors: typeof errors = {};
         let isValid = true;
 
@@ -73,7 +70,6 @@ const Login = () => {
 
         if (!isValid) return;
 
-        // 2. Logika logowania (API)
         setIsLoading(true);
         try {
             const response = await fetch(`${API_URL}/login`, {
@@ -82,29 +78,24 @@ const Login = () => {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    email: formData.email, // Backend często oczekuje 'username', nawet jeśli to email
+                    email: formData.email,
                     password: formData.password
                 }),
             });
 
             if (response.ok) {
-                // Pobieranie tokena z odpowiedzi
-                // Zależnie od backendu: może być w body { "token": "..." } lub w nagłówku Authorization
                 const data = await response.json();
-                const token = data.token || data.jwt; // Dostosuj do struktury JSON z backendu
+                const token = data.token || data.jwt;
 
                 if (token) {
-                    // Zapisanie tokena
                     localStorage.setItem('jwt', token);
                     console.log("Login successful, token saved.");
                     
-                    // Przekierowanie do aplikacji
                     navigate('/cars');
                 } else {
                     setErrors(prev => ({ ...prev, form: 'Token not received from server.' }));
                 }
             } else {
-                // Obsługa błędów (np. 401 Unauthorized)
                 setErrors(prev => ({ ...prev, form: 'Invalid email or password.' }));
             }
         } catch (error) {
@@ -132,7 +123,6 @@ const Login = () => {
                 </div>
 
                 <form onSubmit={handleSubmit} className="p-8 space-y-6" noValidate>
-                    {/* Global Error Message */}
                     {errors.form && (
                         <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative text-sm text-center">
                             {errors.form}
