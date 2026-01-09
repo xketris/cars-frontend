@@ -1,52 +1,83 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 const NavBar = () => {
+  const navigate = useNavigate();
+  const token = localStorage.getItem('jwt');
+
   const linkClasses = ({ isActive }: { isActive: boolean }) =>
     isActive
       ? "text-white bg-indigo-700 px-3 py-2 rounded-md text-sm font-medium"
       : "text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition duration-150";
 
+  const handleLogout = () => {
+    localStorage.removeItem('jwt');
+    navigate('/login');
+  };
+
   return (
     <nav className="bg-gray-800 shadow-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
+          
+          {/* --- LEWA STRONA (Logo + Linki aplikacji) --- */}
           <div className="flex items-center">
             <div className="flex-shrink-0">
               <span className="text-white font-bold text-xl">Cars Client App</span>
             </div>
+            
             <div className="hidden md:block">
               <div className="ml-10 flex items-baseline space-x-4">
-                <NavLink to="/cars" end className={linkClasses}>
-                  Car List
-                </NavLink>
+                {/* Widoczne tylko dla ZALOGOWANYCH */}
+                {token && (
+                  <>
+                    <NavLink to="/cars" end className={linkClasses}>
+                      Car List
+                    </NavLink>
+                    
+                    <NavLink to="/edit/1" className={linkClasses}>
+                      Car Form
+                    </NavLink>
+                  </>
+                )}
                 
-                <NavLink to="/cars/1" className={linkClasses}>
-                  Car Details
-                </NavLink>
-                
-                <NavLink to="/edit/1" className={linkClasses}>
-                  Car Form
-                </NavLink>
-                
+                {/* Linki ogólne (opcjonalnie) */}
                 <NavLink to="/not-found" className={linkClasses}>
                   Not Found
                 </NavLink>
               </div>
             </div>
           </div>
-          <div className="flex intems-center">
+
+          {/* --- PRAWA STRONA (Login/Register/Logout) --- */}
+          <div className="flex items-center">
             <div className="hidden md:block">
-              <div className="ml-10 flex items-baseline space-x-4">
-                <NavLink to="/login" end className={linkClasses}>
-                  Login
-                </NavLink>
+              <div className="ml-4 flex items-baseline space-x-4">
                 
-                <NavLink to="/register" className={linkClasses}>
-                  Register
-                </NavLink>
+                {token ? (
+                  // Dla ZALOGOWANYCH: Przycisk Logout
+                  <button
+                    onClick={handleLogout}
+                    className="text-gray-300 hover:bg-red-600 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition duration-150 cursor-pointer"
+                  >
+                    Logout
+                  </button>
+                ) : (
+                  // Dla NIEZALOGOWANYCH: Login i Register
+                  <>
+                    <NavLink to="/login" end className={linkClasses}>
+                      Login
+                    </NavLink>
+                    
+                    <NavLink to="/register" className={linkClasses}>
+                      Register
+                    </NavLink>
+                  </>
+                )}
+
               </div>
             </div>
           </div>
+
         </div>
       </div>
     </nav>
