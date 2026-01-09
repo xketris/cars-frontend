@@ -34,6 +34,19 @@ const NavBar = () => {
               </div>
             </div>
           </div>
+          <div className="flex intems-center">
+            <div className="hidden md:block">
+              <div className="ml-10 flex items-baseline space-x-4">
+                <NavLink to="/login" end className={linkClasses}>
+                  Login
+                </NavLink>
+                
+                <NavLink to="/register" className={linkClasses}>
+                  Register
+                </NavLink>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </nav>

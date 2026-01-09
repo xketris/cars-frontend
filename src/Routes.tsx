@@ -6,6 +6,8 @@ import CarList from './components/CarList';
 import CarDetails from './components/CarDetails';
 import CarForm from './components/CarForm';
 import NotFound from './components/NotFound';
+import Login from './components/Login';
+import Register from './components/Register';
 
 export const routes: RouteObject[] = [
     {
@@ -23,6 +25,14 @@ export const routes: RouteObject[] = [
             {
                 path: 'edit/:id',
                 element: <CarForm />
+            },
+            {
+                path: 'login',
+                element: <Login />
+            },
+            {
+                path: 'register',
+                element: <Register />
             },
             {
                 path: 'not-found',
